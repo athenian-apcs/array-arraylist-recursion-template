@@ -1,134 +1,209 @@
+import java.util.ArrayList;
+
 public class MyMain {
+    // ********************
     // Examples From Class:
+    // ********************
 
-    // This is the example problem that we did in class
-    // This uses recursion to count the total number
-    // of digits in a positive number
-    public static int numDigits(int x) {
+    // Use tail recursion to find the largest number in an array
+
+    // Wrapper Method:
+    public static int maxArray(int[] arr) {
+        // Call tail recursive method, with i starting at 0
+        return maxArrayTR(arr, 0, Integer.MIN_VALUE);
+    }
+
+    // Tail Recursive Method:
+    public static int maxArrayTR(int[] arr, int i, int max) {
         // Base case
-        if (x == 0) {
-            return 0;
+        if (i == arr.length) {
+            return max;
         }
         // Recursive call
+        else if (arr[i] > max) {
+            return maxArrayTR(arr, i + 1, arr[i]);
+        }
         else {
-            return 1 + numDigits(x / 10);
-        }
-    }
-
-    // This is a wrapper method. It just calls the
-    // tail recursive version of num digits!
-    public static int numDigits2(int x) {
-        return numDigitsTR(x, 0);
-    }
-
-    // This is a tail recursive version of numDigits
-    // This method should never be called directly;
-    // rather the wrapper method numDigits2 should be called
-    public static int numDigitsTR(int x, int count) {
-        // Base case
-        if (x == 0) {
-            return count;
-        }
-        // Recursive call
-        else {
-            return numDigitsTR(x / 10, count + 1);
+            return maxArrayTR(arr, i + 1, max);
         }
     }
 
 
+    // **************************
     // In-class Practice Problems
+    // **************************
 
-    // Write a method that uses recursion to calculate the number
-    // of "big" digits in a number
-    // A big digit is any digit that is at least 5
+    // Write a method that uses recursion to add up all the
+    // values in an array
+
+    // The tail recursive method is provided and wrapper method
+    // is already set up for this problem
+
     // Examples:
-    // countBigDigits(1234) => 0
-    // countBigDigits(99999) => 5
-    // countBigDigits(521931) => 2
-    public static int countBigDigits(int x) {
+    // sum([1, 2, 3, 4]) => 10
+    // sum([4, 3, 2, 1]) => 10
+    // sum([7, 3, 2, 8, 2, 3, 4]) => 29
+
+    // Wrapper Method (Provided for you):
+    public static int sum(int[] arr) {
+        return sumTR(arr,0, 0);
+    }
+
+    // Tail Recursive Method:
+    public static int sumTR(int[] arr, int i, int sum) {
         // YOUR CODE HERE
         return -1;
     }
 
-    // Write a method that uses recursion to calculate whether
-    // the number contains more odd digits than even digits
-    // You will almost certainly need to use **tail recursion!**
 
-    // Hint: what additional parameters will you need to add?
+    // Write a method that uses recursion to search to see
+    // if an **ArrayList** contains a given value x
 
-    // Hint 2: you might want to keep track of both the number
-    // of odd numbers and the number of even numbers
+    // The tail recursive method is provided and wrapper method
+    // is already set up for this problem
 
     // Examples:
-    // moreOddThanEven(1234) => false because 2 of each
-    // moreOddThanEven(99999) => true because 5 odd and 0 even
-    // moreOddThanEven(521931) => true because 5 odd and 1 even
-    public static boolean moreOddThanEven(int x) {
+    // search([1, 2, 3, 4], 1) => true
+    // search([1, 2, 3, 4], 7) => false
+    // search([7, 3, 2, 8, 2, 3, 4], 3) => true
+
+    // Wrapper Method (Provided for you):
+    public static boolean search(ArrayList<Integer> list, int x) {
         // YOUR CODE HERE
         return false;
     }
 
-    // This might be helpful to get started:
-//    public static boolean moreOddThanEvenTR(...) {
-
-    // This method checks if a String is a palindrome
-    // (e.g. "racecar", "madam"), recursively
-    // Remember that a palindrome is a word that is the same forwards
-    // and backwards, so the first letter must match the last letter,
-    // the second letter must match the second to last letter, and so on
-    // Examples:
-    // isPalindrome("racecar") => true
-    // isPalindrome("madam") => true
-    // isPalindrome("racecars") => false
-    public static boolean isPalindrome(String str) {
+    // Tail Recursive Method:
+    public static boolean searchTR(ArrayList<Integer> list, int x, int i) {
         // YOUR CODE HERE
         return false;
     }
 
 
+    // Write a method that uses recursion to check if every number
+    // in an **array** is even
+    // Examples:
+    // allEven([1, 2, 3, 4]) => false
+    // allEven([0, 2, 6, 4]) => true
+    // allEven([7, 3, 2, 8, 2, 3, 4]) => false
+
+    // Wrapper Method (Provided for you):
+    public static boolean allEven(int[] arr) {
+        // YOUR CODE HERE
+        return false;
+    }
+
+    // Tail Recursive Method:
+    // You should write this yourself!
+
+
+    // ********************
+    // Examples From Class:
+    // ********************
+    public static void floodFill(char[][] mat, int row, int col) {
+        // Check out of bounds, return
+        if (row < 0 || col < 0 || row >= mat.length || col >= mat[0].length){
+            return;
+        }
+        // If we're at wall, don't do anything
+        else if (mat[row][col] == 'w') {
+            return;
+        }
+        // If we've already visited there, let's return early
+        else if (mat[row][col] == '*') {
+            return;
+        }
+        else {
+            // Leave "breadcrumbs"
+            mat[row][col] = '*';
+
+            // Visit our neighbors (left, up, right, down)
+            floodFill(mat, row, col-1);
+            floodFill(mat, row-1, col);
+            floodFill(mat, row, col+1);
+            floodFill(mat, row+1, col);
+        }
+    }
 
 
 
+    // ********************
     // Methods for homework:
+    // ********************
 
-    // This method adds up the values of all digits
-    // in x, recursively
-    // Examples:
-    // countBigDigits(1234) => 10
-    // countBigDigits(99999) => 45
-    // countBigDigits(521931) => 21
-    public static int addDigits(int x) {
+    // This recursive method checks if the array contains exactly
+    // count copies of the integer x
+
+    // Wrapper method
+    public static boolean hasCountCopies(int[] arr, int x, int count) {
         // YOUR CODE HERE
-        return -1;
+        return false;
     }
 
-    // Write a method that is given a String containing a single pair
-    // of matched parentheses containing some characters. This method
-    // should use recursion to "trim" off all the extra characters until
-    // only the parentheses and their contents remain
-    // You can assume that the String always contains this pair of parens
-    // Examples:
-    // parenTrim("xyz(abc)123") => "(abc)"
-    // parenTrim("x(hello)") => "(hello)"
-    // parenTrim("(xy)1") => "(xy)"
-    public static String parenTrim(String str) {
+    // You may want a tail recursive method
+
+
+    // This recursive method checks if the array is sorted in
+    // non-decreasing order
+
+    // Wrapper method
+    public static boolean isSorted(ArrayList<Integer> list) {
         // YOUR CODE HERE
-        return "";
+        return false;
     }
 
-    // This method returns the orignal string reversed;
-    // tail recursion could be helpful, but it not required!
+    // You may want a tail recursive method
+
+
+
+
+    // Modify the flood fill algorithm to write an algorithm that looks for
+    // the finish line in a maze
+    // We’ll consider a 2D char array, where the character 'w'
+    // represents a wall, the space character ' ' represents an empty hallway,
+    // and the 'f' represents the finish line
+    // For example:
+    //                                                        row coordinates:
+    //  char[][] mat = { {'w', 'w', ' ', 'w', 'w', 'w'},      // 0
+    //                   {'w', ' ', ' ', 'w', 'f', 'w'},      // 1
+    //                   {'w', ' ', 'w', 'w', ' ', 'w'},      // 2
+    //                   {'w', ' ', ' ', ' ', ' ', 'w'},      // 3
+    //                   {'w', 'w', 'w', ' ', 'w', 'w'},      // 4
+    //                   {'w', ' ', ' ', ' ', 'w', ' '},      // 5
+    //                   {'w', 'w', 'w', 'w', 'w', ' '} };    // 6
+    // col coordinates:    0    1    2    3    4    5
+
+    // We'll be given some starting coordinates (row, col) of where we start
+    // in the maze
     // Examples:
-    // reverse("desserts") => stressed
-    // reverse("racecar") => racecar
-    public static String reverse(String str) {
+    // escape(mat, 0, 0) => false because (0, 0) is a wall
+    // escape(mat, 0, 2) => true because we should be able to make it to f at (1, 4)
+    // escape(mat, 5, 1) => true because we should be able to make it to f at (1, 4)
+    // escape(mat, 6, 5) => false because we get stuck
+
+    // No tail recursion necessary!
+    public static boolean escape(char[][] mat, int row, int col) {
         // YOUR CODE HERE
-        return "";
+        return false;
     }
+
+
+
 
 
 
     public static void main(String[] args) {
         // Optional: Write some code here to test your methods!
+
+        // row coordinates:
+        char[][] mat = {   {'w', 'w', ' ', 'w', 'w', 'w'},      // 0
+                           {'w', ' ', ' ', 'w', 'f', 'w'},      // 1
+                           {'w', ' ', 'w', 'w', ' ', 'w'},      // 2
+                           {'w', ' ', ' ', ' ', ' ', 'w'},      // 3
+                           {'w', 'w', 'w', ' ', 'w', 'w'},      // 4
+                           {'w', ' ', ' ', ' ', 'w', ' '},      // 5
+                           {'w', 'w', 'w', 'w', 'w', ' '} };    // 6
+        // col coordinates:  0    1    2    3    4    5
+        System.out.println(escape(mat, 5, 1));
     }
 }

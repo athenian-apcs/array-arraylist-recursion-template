@@ -1,6 +1,6 @@
-# Week 3 Day 2: Recursion Day Two
+# Week 4 Day 1: Array and ArrayList Recursion
 
-In class today, you'll be writing some more code to get started with recursion.
+In class today, you'll be writing some more code to practice recursion with arrays and ArrayLists
 
 <br />
 
